@@ -46,6 +46,15 @@ class DialogueManager {
             let actualName = "Text\(nextTextNum + i)"
             let note = SKSpriteNode(imageNamed: actualName)
             
+            note.size = doubleSize(note.size)
+            
+            let texture = SKTexture(imageNamed: "Paper")
+            
+//            let sizen = CGSize(width: note.size.width * 1.2, height: note.size.height * 1.5)
+//            noteBox.addChild(note)
+            
+            note.position = CGPoint(x: note.size.width/2, y: -note.size.height/2)
+    
             note.anchorPoint = CGPoint(x: 0, y: 1)
             
             note.position = positions[i]

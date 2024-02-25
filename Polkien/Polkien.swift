@@ -14,6 +14,7 @@ class Polkien : SKSpriteNode {
     private var think : SKTexture
     private var apple : SKTexture
     private var pine : SKTexture
+    private var camera : SKTexture
     
     private var current_image : polkien_image
     
@@ -23,14 +24,12 @@ class Polkien : SKSpriteNode {
         think = SKTexture(imageNamed: "PolkienThink")
         apple = SKTexture(imageNamed: "PolkienApple")
         pine = SKTexture(imageNamed: "PolkienPine")
+        camera = SKTexture(imageNamed: "PolkienCamera")
         
         current_image = .NORMAL
+        let multiplied = CGSize(width: normal.size().width * 2, height: normal.size().height * 2)
         
-        print(normal.size())
-        
-        super.init(texture: normal, color: .white, size: normal.size())
-        
-//        run(SKAction.hide())
+        super.init(texture: normal, color: .white, size: multiplied)
         zPosition = 10
     }
     
@@ -63,9 +62,12 @@ class Polkien : SKSpriteNode {
             self.texture = apple
         case .PINE:
             self.texture = pine
+        case .CAMERA:
+            self.texture = camera
         }
         
-        self.size = self.texture!.size()
+        let multiplied = CGSize(width: texture!.size().width * 2, height: texture!.size().height * 2)
+        self.size = multiplied
     }
     
     public func setPosition(position: CGPoint) {

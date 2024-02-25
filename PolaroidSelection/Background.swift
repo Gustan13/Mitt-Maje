@@ -27,6 +27,8 @@ class Background: SKScene {
         flash.position = CGPoint(x: width/2, y: height/2)
         
         addChild(flash)
+        
+        self.scaleMode = .aspectFit
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,6 +40,7 @@ class Background: SKScene {
         rainManager = RainManager(self)
         
         let background = SKSpriteNode(imageNamed: "Background")
+        background.size = doubleSize(background.size)
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.zPosition = -15
         
@@ -50,11 +53,7 @@ class Background: SKScene {
         let pola = SKAction.run {
             self.rainManager.spawn_polaroids()
             self.rainManager.spawn_polaroids()
-        }
-        let flashme = SKAction.run {
-            self.flashAction()
-        }
-        
+        }        
         let sequence = SKAction.sequence([clouds, wait, pola])
         
         run(sequence)
@@ -86,5 +85,6 @@ class Background: SKScene {
         let sequence = SKAction.sequence([appear, wait, disappear])
         
         flash.run(sequence)
+        print("Porra")
     }
 }

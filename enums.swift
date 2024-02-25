@@ -25,6 +25,6 @@ enum picture : String, CaseIterable {
 }
 
 enum polkien_image {
-    case NORMAL, HAPPY, THINK, APPLE, PINE
+    case NORMAL, HAPPY, THINK, APPLE, PINE, CAMERA
 }
 

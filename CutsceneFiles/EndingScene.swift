@@ -19,7 +19,7 @@ class EndingScene : CutScene {
     
     override func setPositions() {
         positions = [[
-                        CGPoint(x: 0, y: 0),
+                        CGPoint(x: 0, y: -20),
                         CGPoint(x: 0, y: -223)],
                      [
                         CGPoint(x: 6, y: -198)],
@@ -27,7 +27,7 @@ class EndingScene : CutScene {
                         CGPoint(x: 43, y: -32),
                         CGPoint(x: 0, y: -237)],
                      [
-                        CGPoint(x: 5, y: 0),
+                        CGPoint(x: 5, y: -20),
                         CGPoint(x: 20, y: -359)],
                      [
                         CGPoint(x: 3, y: -26),
@@ -53,5 +53,9 @@ class EndingScene : CutScene {
     
     override func createSets() {
         all_sets = [2, 1, 2, 2, 3]
+    }
+    
+    override func setPolkienCamera() {
+        polkien.changePolkien(to: .CAMERA)
     }
 }

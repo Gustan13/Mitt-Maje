@@ -15,31 +15,32 @@ class SceneManager: ObservableObject {
     var background_scene : Background!
     var puzzle_scene : PolaroidPuzzle!
     
-    @Published var current_scene : Scenes = .intro
+    @Published var current_scene : Scenes = .menu
     @Published var current_polaroid : picture = .NONE
     @Published var current_phase : Int = 0
     
+    @Published var flash : Bool = false
+    @Published var isDone : Bool = false
+    
     init() {
-        intro_scene = Intro()
-        ending_scene = EndingScene()
-        background_scene = Background()
+        self.background_scene = Background()
         
-        intro_scene.scaleMode = .aspectFill
-        ending_scene.scaleMode = .aspectFill
-        background_scene.scaleMode = .aspectFill
-        
-        intro_scene.sceneManager = self
-        ending_scene.sceneManager = self
+        self.background_scene.scaleMode = .aspectFill
     }
     
     func change_to_menu()
     {
         withAnimation {
+            flash = true
             self.current_scene = .menu
         }
     }
     func change_to_intro()
     {
+        self.intro_scene = Intro()
+        self.intro_scene.sceneManager = self
+        self.intro_scene.scaleMode = .aspectFill
+        
         withAnimation {
             self.current_scene = .intro
         }
@@ -52,7 +53,12 @@ class SceneManager: ObservableObject {
     }
     func change_to_ending()
     {
+        self.ending_scene = EndingScene()
+        self.ending_scene.sceneManager = self
+        self.ending_scene.scaleMode = .aspectFill
+        
         withAnimation {
+            flash = true
             self.current_scene = .ending
         }
     }
@@ -68,6 +74,7 @@ class SceneManager: ObservableObject {
             self.puzzle_scene.backgroundColor = SKColor.clear
             self.puzzle_scene.view?.allowsTransparency = true
             self.puzzle_scene.view?.backgroundColor = SKColor.clear
+            self.puzzle_scene.scaleMode = .aspectFill
         }
     }
     
@@ -76,13 +83,10 @@ class SceneManager: ObservableObject {
             withAnimation(.linear(duration: 0.5)) {
                 current_phase += 1
                 if current_phase == picture.allCases.count {
-                    let wait = SKAction.wait(forDuration: 1.2)
-                    let runthing = SKAction.run {
+                    print("Changing")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                         self.change_to_ending()
-                    }
-                    let sequence = SKAction.sequence([wait, runthing])
-                    
-                    background_scene.run(sequence)
+                    })
                 } else {
                     background_scene.flashAction()
                 }

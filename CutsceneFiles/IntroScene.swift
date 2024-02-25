@@ -20,24 +20,24 @@ class Intro : CutScene {
     
     override func setPositions() {
         positions = [[
-                        CGPoint(x: 0, y: 0),
+                        CGPoint(x: 0, y: -20),
                         CGPoint(x: 148, y: -270),
                         CGPoint(x: 0, y: -561)],
                      [
                         CGPoint(x: 75, y: -43),
                         CGPoint(x: 0, y: -228)],
                      [
-                        CGPoint(x: 83, y: -0),
+                        CGPoint(x: 83, y: -20),
                         CGPoint(x: 0, y: -255)],
                      [
                         CGPoint(x: 110, y: -35),
                         CGPoint(x: 0, y: -353)],
                      [
-                        CGPoint(x: 183, y: -8),
+                        CGPoint(x: 183, y: -20),
                         CGPoint(x: 0, y: -211),
                         CGPoint(x: 68, y: -406)],
                      [
-                        CGPoint(x: 0, y: 0),
+                        CGPoint(x: 0, y: -20),
                         CGPoint(x: 0, y: -269),]
         ]
     }
@@ -65,6 +65,10 @@ class Intro : CutScene {
     
     override func createSets() {
         all_sets = [3, 2, 2, 2, 3, 2]
+    }
+    
+    override func setPolkienCamera() {
+        polkien.changePolkien(to: .CAMERA)
     }
 }
 

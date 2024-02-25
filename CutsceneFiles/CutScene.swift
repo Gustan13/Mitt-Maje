@@ -23,7 +23,8 @@ class CutScene : SKScene {
     private var toScene : Scenes
     
     init(_ first: Int, _ last: Int, toScene: Scenes) {
-        let background = SKSpriteNode(imageNamed: "Background 1")
+        var background = SKSpriteNode(imageNamed: "Background 1")
+        background.size = doubleSize(background.size)
         self.toScene = toScene
         
         super.init(size: CGSize(width: width, height: height))
@@ -74,13 +75,24 @@ class CutScene : SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if dialogueManager.nextDialogue(positions) {
-            if (toScene == .game)
-            {
-                sceneManager.change_to_game()
+            self.isUserInteractionEnabled = false
+            
+            setPolkienCamera()
+            
+            let wait = SKAction.wait(forDuration: 0.5)
+            let go = SKAction.run {
+                self.sceneManager.flash = true
+                
+                if (self.toScene == .game)
+                {
+                    self.sceneManager.change_to_game()
+                }
+                else {
+                    self.sceneManager.change_to_menu()
+                }
             }
-            else {
-                sceneManager.change_to_menu()
-            }
+            let sequence = SKAction.sequence([wait, go])
+            run(sequence)
         }
         
         setPolkienEmotions()
@@ -91,6 +103,10 @@ class CutScene : SKScene {
     }
     
     func setPolkienEmotions() {
+        fatalError("Must override")
+    }
+    
+    func setPolkienCamera() {
         fatalError("Must override")
     }
     
